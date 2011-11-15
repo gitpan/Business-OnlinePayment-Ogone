@@ -23,7 +23,7 @@ my %WriteMakefileArgs = (
     "Business::OnlinePayment" => 0,
     "Test::Most" => 0
   },
-  "VERSION" => "0.2",
+  "VERSION" => "0.2.1",
   "test" => {
     "TESTS" => "t/*.t"
   }
