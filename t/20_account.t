@@ -8,6 +8,10 @@ use Data::Dumper;
 # setup from ENV
 #########################################################################################################
 
+$ENV{OGONE_PSWD} ||= '7n1tt3st';
+$ENV{OGONE_PSPID} ||= 'perlunit';
+$ENV{OGONE_USERID} ||= 'perltest';
+
 bail_on_fail; 
     ok($ENV{OGONE_USERID}, "test can only proceed with environment OGONE_USERID set");
 bail_on_fail; 
@@ -31,7 +35,7 @@ my %base_args = (
     expiration  => '12/15',
     country => 'BE',
     address => 'Nieuwstraat 32',
-    sha_key => '___testing_123_passphrase___',
+    sha_key => 'xxxtestingx123xpassphrasexxx',
     sha_type => 512,
     zip => 1000
 );
@@ -206,12 +210,12 @@ $tx = new_test_tx();
 # FIXME: can only be tested with sleep 86400 :-)
 #
 # test failing refunds:
-$tx = new_test_tx();
-$tx->content(invoice_number => $invoice_number2, payid => $payid, payidsub => $payidsub, operation => 'RFD', action => 'post authorization', amount => 12.24, map { $_ => $base_args{$_} } (qw/login password PSPID/) ); eval { $tx->submit() }; 
-is($@, '', "there should have been no warnings");
-is($tx->is_success, 0, "must be not successful, it was just transacted and is still in 91 state");
-like($tx->error_message, qr/Operation is not allowed/, "error message must be contain operation not allowed");
-like($tx->error_message, qr/status \(91\)/, "error message must be contain status\(91\)");
+#$tx = new_test_tx();
+#$tx->content(invoice_number => $invoice_number2, payid => $payid, payidsub => $payidsub, operation => 'RFD', action => 'post authorization', amount => 12.24, map { $_ => $base_args{$_} } (qw/login password PSPID/) ); eval { $tx->submit() }; 
+#is($@, '', "there should have been no warnings");
+#is($tx->is_success, 0, "must be not successful, it was just transacted and is still in 91 state");
+#like($tx->error_message, qr/Operation is not allowed/, "error message must be contain operation not allowed");
+#like($tx->error_message, qr/status \(91\)/, "error message must be contain status\(91\)");
 
 ##########################################################################################################
 # full refund

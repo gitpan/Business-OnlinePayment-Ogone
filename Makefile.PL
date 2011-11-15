@@ -9,23 +9,23 @@ use ExtUtils::MakeMaker 6.30;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Online payment processing via Ogone',
-  'AUTHOR' => 'Tim Esselens <tim.esselens@gmail.com>',
-  'BUILD_REQUIRES' => {},
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.30'
+  "ABSTRACT" => "Online payment processing via Ogone",
+  "AUTHOR" => "Tim Esselens <tim.esselens\@gmail.com>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'Business-OnlinePayment-Ogone',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'Business::OnlinePayment::Ogone',
-  'PREREQ_PM' => {
-    'Business::OnlinePayment' => '0',
-    'Test::Most' => '0'
+  "DISTNAME" => "Business-OnlinePayment-Ogone",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Business::OnlinePayment::Ogone",
+  "PREREQ_PM" => {
+    "Business::OnlinePayment" => 0,
+    "Test::Most" => 0
   },
-  'VERSION' => '0.001',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.2",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 

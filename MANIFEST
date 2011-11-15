@@ -13,6 +13,7 @@ t/00_use.t
 t/10_functional.t
 t/20_account.t
 t/30_alias.t
+t/40_recur.t
 t/author-critic.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
