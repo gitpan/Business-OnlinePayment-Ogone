@@ -6,7 +6,6 @@ use parent 'Business::OnlinePayment::HTTPS';
 use strict; # keep Perl::Critic happy over common::sense;
 use common::sense;
 use Carp;
-use Data::Dumper;
 use XML::Simple qw/:strict/;
 use Digest::SHA qw/sha1_hex sha256_hex sha512_hex/;
 use MIME::Base64;
@@ -136,12 +135,11 @@ sub submit {
     croak 'max 2 digits after comma (or dot) allowed' if $self->{_content}->{amount} =~ m/[\,\.]\d{3}/;
 
     # Ogone has multiple users per login, defaults to login
-    $self->{_content}->{PSPID}      ||= $self->{PSPID} || $self->{login} || $self->{_content}->{login};
+    $self->{_content}->{PSPID}      ||= $self->{pspid} || $self->{PSPID} || $self->{login} || $self->{_content}->{login};
 
     # Login information, default to constructor values
     $self->{_content}->{login}      ||= $self->{login};
     $self->{_content}->{password}   ||= $self->{password};
-    $self->{_content}->{PSPID}      ||= $self->{PSPID};
 
     # Default Operation request for authorization (RES) for authorization only, (capture full and close) SAS for post authorization
     $self->{_content}->{operation}  ||= 'RES' if $self->{_content}->{action} =~ m/authorization only/;
@@ -201,7 +199,8 @@ sub submit {
                         map { $ogone_api_args{$_} || $_ } @all_http_args;
 
     # Ogone accepts the amount as 100 fold in integer form.
-    $http_req_args{amount} = int(100 * $http_req_args{amount}) if exists $http_req_args{amount};
+    # # Adding 0.5 to amount to prevent "rounding" errors, see http://stackoverflow.com/a/1274692 or perldoc -q round
+    $http_req_args{amount} = int(100 * $http_req_args{amount} + 0.5) if exists $http_req_args{amount};
 
     # Map normal fields to their SUB_ counterparts when recurrent authorization is used
     if($self->{_content}->{action} =~ m/recurrent authorization/) {
@@ -209,6 +208,9 @@ sub submit {
         $http_req_args{SUB_AMOUNT} = $http_req_args{amount};
         $http_req_args{SUB_ORDERID} = $http_req_args{orderID};
     }
+
+    # PSPID might be entered in lowercase (as per old documentation)
+    $http_req_args{PSPID} = $self->{_content}{pspid} if defined $self->{_content}{pspid};
 
     # Calculate sha1 by default, but has to be enabled in the Ogone backend to have any effect
     my ($sha_type)  = ($self->{_content}->{sha_type} =~ m/^(1|256|512)$/);

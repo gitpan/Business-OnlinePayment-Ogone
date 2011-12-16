@@ -21,9 +21,15 @@ my %WriteMakefileArgs = (
   "NAME" => "Business::OnlinePayment::Ogone",
   "PREREQ_PM" => {
     "Business::OnlinePayment" => 0,
-    "Test::Most" => 0
+    "Carp" => 0,
+    "Data::Dumper" => 0,
+    "Digest::SHA" => 0,
+    "MIME::Base64" => 0,
+    "Test::Most" => 0,
+    "XML::Simple" => 0,
+    "common::sense" => 0
   },
-  "VERSION" => "0.2.1",
+  "VERSION" => "0.2.2",
   "test" => {
     "TESTS" => "t/*.t"
   }
