@@ -29,7 +29,7 @@ my %WriteMakefileArgs = (
     "XML::Simple" => 0,
     "common::sense" => 0
   },
-  "VERSION" => "0.2.2",
+  "VERSION" => "0.2.2.1",
   "test" => {
     "TESTS" => "t/*.t"
   }
